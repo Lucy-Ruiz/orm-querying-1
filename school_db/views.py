@@ -203,14 +203,11 @@ def problem_four(request):
     courses = Course.objects.count()
     instructors = Instructor.objects.count()
 
-    for students in students:
-        print(f'Students count: {students}')
+    print(f'Students count: {students}')
 
-    # for course in courses:
-    #     print(f'Courses count: {}')
+    print(f'Courses count: {courses}')
 
-    # for instructor in instructors:
-    #     print(f'Instructors count: {}')
+    print(f'Instructors count: {instructors}')
 
     return complete(request)
 
@@ -256,6 +253,13 @@ SELECT COUNT(*) AS `__count`
 # NOTE every time you execute this function a duplicate student will be created with a different primary key number
 def problem_five(request):
 
+    # student = Student.objects.create(id=11, first_name='Lucy', last_name='Ruiz', year=2010, gpa=3.0)
+    # print(f'''
+    # Id: {student.id}
+    # Full Name: {student.first_name} {student.last_name}
+    # Year: {student.year}
+    # GPA: {student.gpa}''')
+
     return complete(request)
 
 
@@ -290,6 +294,15 @@ def problem_six(request):
 
     # Make sure to set this equal to the primary key of the row you just created!
     student_id = 11
+    Student.objects.filter(pk=student_id).update(gpa=4.0)
+    students = Student.objects.filter(pk=student_id)
+
+    for student in students:
+
+        print(f'''
+        Id: {student.id}
+        Full name: {student.first_name} {student.last_name}
+        GPA: {student.gpa}''')
 
     return complete(request)
 
@@ -337,6 +350,9 @@ def problem_seven(request):
 
     # Make sure to set this equal to the primary key of the row you just created!
     student_id = 11
+
+    Student.objects.filter(pk=student_id).delete()
+    student = Student.objects.filter(pk=student_id)
 
     try:
         student = Student.objects.get(pk=student_id)
